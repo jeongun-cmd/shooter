@@ -11,9 +11,9 @@
 <body><main class="shell">
 <header class="top"><div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span><span class="name"><strong>OUTBREAK<span>RUN</span></strong><small>SURVIVOR PROTOCOL</small></span></div><div class="tag"><i class="dot"></i> COMBAT SYSTEM <b>03</b></div></header>
 <section class="hud" aria-label="게임 상태"><div class="card"><div class="label">⌖ 작전 구역</div><div class="value">01 <small>/ DOWNTOWN</small></div><div class="meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="card"><div class="label">✦ 획득 점수</div><div class="value score" id="scoreValue">0000</div><div class="sub">MISSION SCORE</div></div><div class="card"><div class="label">＋ 생존 상태</div><div class="health"><strong id="healthValue">100</strong><span>%</span><em id="healthState">STABLE</em></div><div class="bar"><i id="healthBar"></i></div></div></section>
-<section class="frame" aria-label="폐허가 된 도심 게임 장면"><div class="scene-top"><span><i></i>SECTOR 01 <b>/</b> 도심 외곽</span><span>MISSION <b>//</b> SURVIVE</span></div><canvas id="game" aria-label="폐허가 된 도시와 주인공"></canvas><div class="vignette"></div><div class="objective"><span class="alert">!</span><span><b>작전 목표</b><small>안전 구역까지 이동하라</small></span></div><div class="move-hint"><span class="arrows"><b>←</b><b>→</b></span><span><strong>MOVE / 이동</strong><small>방향키 · WASD · 드래그</small></span></div><div class="weapon"><span class="weapon-icon">▰</span><span><b>ASSAULT RIFLE</b><small>READY TO DEPLOY</small></span><span class="ammo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="game-over" id="gameOver" aria-live="polite"><div class="game-over-panel"><p class="over-kicker">SURVIVOR PROTOCOL // FAILED</p><h2>작전 종료</h2><p>좀비에게 길을 내주었습니다.<br>다시 도전해 기록을 갱신하세요.</p><div class="final-score">FINAL SCORE<strong id="finalScore">0000</strong></div><button id="restartButton" type="button">다시 시작 ↻</button></div></div></section>
+<section class="frame" aria-label="폐허가 된 도심 게임 장면"><div class="scene-top"><span><i></i>SECTOR 01 <b>/</b> 도심 외곽</span><span>MISSION <b>//</b> SURVIVE</span></div><canvas id="game" aria-label="폐허가 된 도시와 주인공"></canvas><div class="vignette"></div><div class="objective"><span class="alert">!</span><span><b>작전 목표</b><small>좌우로 움직여 직선 탄환을 맞춰라</small></span></div><div class="move-hint"><span class="arrows"><b>←</b><b>→</b></span><span><strong>MOVE / 이동</strong><small>방향키 · WASD · 드래그</small></span></div><div class="weapon"><span class="weapon-icon">▰</span><span><b>ASSAULT RIFLE</b><small>READY TO DEPLOY</small></span><span class="ammo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span></div><div class="game-over" id="gameOver" aria-live="polite"><div class="game-over-panel"><p class="over-kicker">SURVIVOR PROTOCOL // FAILED</p><h2>작전 종료</h2><p>좀비에게 길을 내주었습니다.<br>다시 도전해 기록을 갱신하세요.</p><div class="final-score">FINAL SCORE<strong id="finalScore">0000</strong></div><button id="restartButton" type="button">다시 시작 ↻</button></div></div></section>
 <footer class="bottom"><div class="ready"><span class="check">✓</span><span><strong id="missionState">좀비 무리 접근 중</strong><small id="missionHint">적 처치 +100점 · 접촉 시 체력 감소</small></span></div><div class="features"><span><i></i>배경</span><span><i></i>주인공</span><span><i></i>점수 / 체력</span></div><div class="version">BUILD <b>0.3.0</b></div></footer>
-<p class="note">← → / A / D 또는 화면 드래그로 이동 · 자동 조준 사격 · 좀비 처치 +100점</p>
+<p class="note">← → / A / D 또는 화면 드래그로 이동 · 탄환은 직선으로 발사 · 명중 시 +100점</p>
 </main>
 <script>
 (function(){
@@ -27,20 +27,22 @@ function zombie(px,py,s,t){x.save();x.translate(px,py);x.scale(s,s);var sw=Math.
 function hero(t){x.save();x.translate(w*playerX,h*.79+Math.sin(t*.004)*1.5);var s=Math.min(w/600,h/430)*1.05;x.scale(s,s);x.globalAlpha=.5;x.fillStyle='#060a08';x.beginPath();x.ellipse(0,36,43,12,0,0,6.28);x.fill();x.globalAlpha=1;poly([[-24,21],[-7,21],[-4,37],[-25,39],[-30,34]],'#151c19','#4b5545');poly([[7,21],[24,21],[29,34],[23,39],[3,37]],'#151c19','#4b5545');poly([[-24,-2],[-3,0],[-5,25],[-20,29],[-27,20]],'#3b4938','#667052');poly([[3,0],[24,-2],[27,20],[20,29],[5,25]],'#344232','#667052');x.fillStyle='#697653';x.fillRect(-22,11,14,6);x.fillRect(9,11,14,6);poly([[-25,-42],[-17,-51],[17,-51],[25,-41],[22,-8],[-23,-8]],'#26342a','#64704e');x.fillStyle='#47583a';x.fillRect(-16,-41,32,24);x.strokeStyle='#7c8859';x.strokeRect(-13,-37,26,16);x.fillStyle='#c6f36b';x.fillRect(-3,-35,6,3);poly([[-20,-54],[-12,-65],[12,-65],[21,-54],[17,-14],[-17,-14]],'#536046','#8a936b');poly([[-12,-60],[-4,-58],[-5,-19],[-14,-20]],'#303b2e');poly([[5,-58],[13,-60],[15,-20],[5,-19]],'#303b2e');x.fillStyle='#a78a61';x.fillRect(-6,-72,12,9);x.fillStyle='#64734b';x.beginPath();x.ellipse(0,-79,16,15,0,3.14,6.28);x.fill();x.fillStyle='#81915e';x.beginPath();x.ellipse(0,-80,15,11,0,3.14,6.28);x.fill();x.fillStyle='#3c4932';x.fillRect(-15,-80,30,5);x.strokeStyle='#a0ad73';x.beginPath();x.arc(0,-79,12,3.14,6.28);x.stroke();x.save();x.translate(8,-44);x.rotate(-.12);poly([[-3,-24],[3,-24],[4,12],[-3,13]],'#1b211d','#78806a');x.fillStyle='#121713';x.fillRect(-4,-29,8,8);x.fillStyle='#c6f36b';x.fillRect(-1,-30,2,4);x.restore();x.restore();}
 function updatePlayer(dt){var dir=(keys.arrowright||keys.d?1:0)-(keys.arrowleft||keys.a?1:0);if(dir)playerX=Math.max(.13,Math.min(.87,playerX+dir*.58*dt));}
 function updateShots(dt,t){
-fireCooldown-=dt;muzzleFlash=Math.max(0,muzzleFlash-dt);
+fireCooldown-=dt;
+muzzleFlash=Math.max(0,muzzleFlash-dt);
 if(fireCooldown<=0){
 var s=Math.min(w/600,h/430)*1.05;
-var sx=w*playerX+8*s,sy=h*.79+Math.sin(t*.004)*1.5-67*s;
-var target=null;
-for(var i=0;i<enemies.length;i++){if(!enemies[i].dead&&(!target||enemies[i].y>target.y))target=enemies[i];}
-var tx=target?target.x:sx,ty=target?target.y-24*target.scale:sy-180;
-if(target)ty+=target.speed*(Math.hypot(tx-sx,ty-sy)/510);
-var dx=tx-sx,dy=ty-sy,len=Math.hypot(dx,dy)||1;
-shots.push({x:sx,y:sy,vx:dx/len*510,vy:dy/len*510,tail:13,speed:510,dead:false});
-fireCooldown=.23;muzzleFlash=.07;
+var sx=w*playerX+8*s;
+var sy=h*.79+Math.sin(t*.004)*1.5-67*s;
+// 탄환은 적을 추적하지 않고 항상 화면 위쪽으로 직선 이동한다.
+shots.push({x:sx,y:sy,vx:0,vy:-650,tail:17,dead:false});
+fireCooldown=.23;
+muzzleFlash=.07;
 }
-for(var j=0;j<shots.length;j++){shots[j].x+=shots[j].vx*dt;shots[j].y+=shots[j].vy*dt;}
-shots=shots.filter(function(b){return !b.dead&&b.y>-35&&b.y<h+50&&b.x>-35&&b.x<w+35;});
+for(var j=0;j<shots.length;j++){
+shots[j].x+=shots[j].vx*dt;
+shots[j].y+=shots[j].vy*dt;
+}
+shots=shots.filter(function(b){return !b.dead&&b.y>-35;});
 }
 function updateHud(){
 document.getElementById('scoreValue').textContent=String(score).padStart(4,'0');
@@ -69,7 +71,15 @@ updateHud();
 document.getElementById('restartButton').addEventListener('click',resetGame);
 function spawnEnemy(){
 var worldScale=Math.min(w/600,h/430)*1.05;
-enemies.push({x:w*(.22+Math.random()*.56),y:h*.405,speed:h*(.105+Math.random()*.018),scale:worldScale*.25,hp:2,maxHp:2,hit:0,phase:Math.random()*6.28,dead:false});
+var lanes=[.20,.35,.50,.65,.80];
+var lane=lanes[Math.floor(Math.random()*lanes.length)];
+enemies.push({
+x:w*(lane+(Math.random()-.5)*.035),
+y:h*.405,
+speed:h*(.11+Math.random()*.025),
+scale:worldScale*.25,
+hp:2,maxHp:2,hit:0,phase:Math.random()*6.28,dead:false
+});
 }
 function updateEnemies(dt){
 spawnTimer-=dt;
@@ -100,7 +110,10 @@ var b=shots[i];if(b.dead)continue;
 for(var j=0;j<enemies.length;j++){
 var e=enemies[j];if(e.dead)continue;
 var cx=e.x,cy=e.y-24*e.scale;
-if(Math.hypot(b.x-cx,b.y-cy)<Math.max(8,e.scale*17)){
+// 실제 좀비의 몸통 범위에 탄환이 들어왔을 때만 명중 처리한다.
+var hitWidth=Math.max(7,e.scale*13);
+var hitHeight=Math.max(12,e.scale*25);
+if(Math.abs(b.x-cx)<hitWidth&&Math.abs(b.y-cy)<hitHeight){
 b.dead=true;e.hp--;e.hit=.12;
 if(e.hp<=0){e.dead=true;score+=100;gotKill=true;}
 break;
@@ -131,7 +144,7 @@ var b=shots[i],len=Math.hypot(b.vx,b.vy)||1;
 x.globalAlpha=.24;x.strokeStyle="#c6f36b";x.lineWidth=5;x.beginPath();
 x.moveTo(b.x-b.vx/len*b.tail,b.y-b.vy/len*b.tail);x.lineTo(b.x,b.y);x.stroke();
 x.globalAlpha=.95;x.shadowColor="#c6f36b";x.shadowBlur=13;x.fillStyle="#f3ffbe";
-x.beginPath();x.ellipse(b.x,b.y,2.3*s,5*s,Math.atan2(b.vy,b.vx)+Math.PI/2,0,Math.PI*2);x.fill();x.shadowBlur=0;
+x.beginPath();x.ellipse(b.x,b.y,2.3*s,5*s,0,0,Math.PI*2);x.fill();x.shadowBlur=0;
 }
 if(muzzleFlash>0){var mx=w*playerX+8*s,my=h*.79+Math.sin(t*.004)*1.5-69*s;x.globalAlpha=muzzleFlash/.07;x.fillStyle="#eaffae";x.shadowColor="#eaffae";x.shadowBlur=17;x.beginPath();x.moveTo(mx,my-8*s);x.lineTo(mx+5*s,my+1*s);x.lineTo(mx,my+5*s);x.lineTo(mx-4*s,my+1*s);x.closePath();x.fill();}
 x.restore();
@@ -144,7 +157,7 @@ c.addEventListener('pointerdown',function(e){pointerActive=true;setPlayerFromPoi
 c.addEventListener('pointermove',function(e){if(pointerActive)setPlayerFromPointer(e);});
 c.addEventListener('pointerup',function(){pointerActive=false;});
 c.addEventListener('pointercancel',function(){pointerActive=false;});
-function draw(now){var t=now-start,dt=lastFrame?Math.min((now-lastFrame)/1000,.04):0,y=h*.38;lastFrame=now;if(!w||!h)return;if(!ended){updatePlayer(dt);updateEnemies(dt);if(!ended){updateShots(dt,t);resolveCombat();}}x.clearRect(0,0,w,h);var sky=x.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#18221e');sky.addColorStop(.42,'#4b4b38');sky.addColorStop(.68,'#383d30');sky.addColorStop(1,'#20291f');x.fillStyle=sky;x.fillRect(0,0,w,h);var gl=x.createRadialGradient(w*.52,y*.75,2,w*.52,y*.75,w*.48);gl.addColorStop(0,'#c17d4245');gl.addColorStop(1,'#c17d4200');x.fillStyle=gl;x.fillRect(0,0,w,y+50);city(y);var hz=x.createLinearGradient(0,y-15,0,y+65);hz.addColorStop(0,'#a58b5a00');hz.addColorStop(.5,'#b6a07132');hz.addColorStop(1,'#5c695000');x.fillStyle=hz;x.fillRect(0,y-15,w,80);var vx=w*.51+Math.sin(t*.00016)*w*.007;poly([[vx-5,y],[vx+5,y],[w*1.15,h],[-w*.15,h]],'#42473c');poly([[0,y+12],[vx-8,y],[w*.12,h],[0,h]],'#343e2e');poly([[vx+8,y],[w,y+12],[w,h],[w*.88,h]],'#343e2e');for(var i=0;i<6;i++){var p=(i/6+t*.000035%1)%1,yy=y+(h-y)*p*p,sc=.2+p*1.7;x.fillStyle='#c9bb8c';x.globalAlpha=.18+p*.25;x.fillRect(vx-(1.5+p*5)*sc/2,yy,(1.5+p*5)*sc,(3+p*16)*sc*.5);}x.globalAlpha=1;var q=rand(62);for(i=0;i<34;i++){var dep=q(),yy2=y+Math.pow(dep,1.45)*(h-y),side=q()>.5?1:-1,edge=w*.51+side*w*.02,xx=side>0?edge+(w-edge)*(.12+q()*.8):edge*(.08+q()*.8),sz=1+dep*9;poly([[xx,yy2],[xx+sz,yy2-sz*.35],[xx+sz*1.8,yy2+sz*.15],[xx+sz*.5,yy2+sz*.6]],q()>.5?'#56584a':'#282f29');}zombie(w*.39,h*.59,Math.max(.35,w/950),t*.0013);zombie(w*.61,h*.57,Math.max(.38,w/880),t*.0011+1.5);zombie(w*.5,h*.52,Math.max(.29,w/1100),t*.001+2.7);x.strokeStyle='#252d25';x.lineWidth=Math.max(2,w*.004);x.beginPath();x.moveTo(w*.12,h*.24);x.lineTo(w*.12,h*.55);x.stroke();x.fillStyle='#24352a';x.fillRect(w*.12,h*.25,w*.115,h*.043);x.strokeStyle='#798363';x.lineWidth=1;x.strokeRect(w*.12,h*.25,w*.115,h*.043);x.fillStyle='#c6f36b';x.font='bold '+Math.max(6,w*.012)+'px system-ui';x.fillText('SAFE ZONE ->',w*.128,h*.277);dust.forEach(function(p){var yy=(p.y-t*.001*p.v+h)%h,xx=p.x+Math.sin(t*.0006+p.p)*5;x.fillStyle='#e6bd74';x.globalAlpha=p.a*(.65+.35*Math.sin(t*.002+p.p));x.beginPath();x.arc(xx,yy,p.s,0,6.28);x.fill();});x.globalAlpha=1;drawEnemies(t);hero(t);drawShots(t);requestAnimationFrame(draw);}
+function draw(now){var t=now-start,dt=lastFrame?Math.min((now-lastFrame)/1000,.04):0,y=h*.38;lastFrame=now;if(!w||!h)return;if(!ended){updatePlayer(dt);updateEnemies(dt);if(!ended){updateShots(dt,t);resolveCombat();}}x.clearRect(0,0,w,h);var sky=x.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#18221e');sky.addColorStop(.42,'#4b4b38');sky.addColorStop(.68,'#383d30');sky.addColorStop(1,'#20291f');x.fillStyle=sky;x.fillRect(0,0,w,h);var gl=x.createRadialGradient(w*.52,y*.75,2,w*.52,y*.75,w*.48);gl.addColorStop(0,'#c17d4245');gl.addColorStop(1,'#c17d4200');x.fillStyle=gl;x.fillRect(0,0,w,y+50);city(y);var hz=x.createLinearGradient(0,y-15,0,y+65);hz.addColorStop(0,'#a58b5a00');hz.addColorStop(.5,'#b6a07132');hz.addColorStop(1,'#5c695000');x.fillStyle=hz;x.fillRect(0,y-15,w,80);var vx=w*.51+Math.sin(t*.00016)*w*.007;poly([[vx-5,y],[vx+5,y],[w*1.15,h],[-w*.15,h]],'#42473c');poly([[0,y+12],[vx-8,y],[w*.12,h],[0,h]],'#343e2e');poly([[vx+8,y],[w,y+12],[w,h],[w*.88,h]],'#343e2e');for(var i=0;i<6;i++){var p=(i/6+t*.000035%1)%1,yy=y+(h-y)*p*p,sc=.2+p*1.7;x.fillStyle='#c9bb8c';x.globalAlpha=.18+p*.25;x.fillRect(vx-(1.5+p*5)*sc/2,yy,(1.5+p*5)*sc,(3+p*16)*sc*.5);}x.globalAlpha=1;var q=rand(62);for(i=0;i<34;i++){var dep=q(),yy2=y+Math.pow(dep,1.45)*(h-y),side=q()>.5?1:-1,edge=w*.51+side*w*.02,xx=side>0?edge+(w-edge)*(.12+q()*.8):edge*(.08+q()*.8),sz=1+dep*9;poly([[xx,yy2],[xx+sz,yy2-sz*.35],[xx+sz*1.8,yy2+sz*.15],[xx+sz*.5,yy2+sz*.6]],q()>.5?'#56584a':'#282f29');}x.strokeStyle='#252d25';x.lineWidth=Math.max(2,w*.004);x.beginPath();x.moveTo(w*.12,h*.24);x.lineTo(w*.12,h*.55);x.stroke();x.fillStyle='#24352a';x.fillRect(w*.12,h*.25,w*.115,h*.043);x.strokeStyle='#798363';x.lineWidth=1;x.strokeRect(w*.12,h*.25,w*.115,h*.043);x.fillStyle='#c6f36b';x.font='bold '+Math.max(6,w*.012)+'px system-ui';x.fillText('SAFE ZONE ->',w*.128,h*.277);dust.forEach(function(p){var yy=(p.y-t*.001*p.v+h)%h,xx=p.x+Math.sin(t*.0006+p.p)*5;x.fillStyle='#e6bd74';x.globalAlpha=p.a*(.65+.35*Math.sin(t*.002+p.p));x.beginPath();x.arc(xx,yy,p.s,0,6.28);x.fill();});x.globalAlpha=1;drawEnemies(t);hero(t);drawShots(t);requestAnimationFrame(draw);}
 if('ResizeObserver' in window)new ResizeObserver(size).observe(c);else window.addEventListener('resize',size);size();requestAnimationFrame(draw);
 })();
 </script></body></html>
