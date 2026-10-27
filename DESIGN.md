@@ -1,33 +1,33 @@
-# OUTBREAK PULSE — UI Design Specification
+# OUTBREAK PULSE — UI Design Specification (Design Update 05)
 
 Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 
-The web implementation in `index.html` now uses this design hierarchy and palette.
+The root `index.html` implements this layout. Its visible `DESIGN UPDATE 05` badge identifies the updated version.
 
-## Visual system
-- Background / Base: `#0E130E`
-- Surface / Panel: `#171F14`
+## Tokens
+- Background / Base: `#11170F`
+- Surface / Panel: `#1C2519`
 - Surface / Elevated: `#222D1D`
-- Border / Subtle: `#404F30`
-- Text / Primary: `#F2E8D1`
-- Text / Secondary: `#A8B59C`
-- Accent / Lime: `#C7F36B`
+- Border / Subtle: `#3D4C32`
+- Text / Primary: `#F0E7D2`
+- Text / Secondary: `#A9B29E`
+- Accent / Lime: `#C7F36A`
 - Accent / Cyan: `#73F4EF`
-- Status / Warning: `#FFAB50`
+- Status / Warning: `#FFB45E`
 - Status / Danger: `#FF6E61`
 
-## Screen hierarchy
-1. Brand and system-status header.
-2. Operation title and brief aim instruction.
-3. Three KPI cards: score, integrity and wave.
-4. Portrait gameplay viewport with mission chip and wave badge.
-5. Target-lane indicator with explicit LEFT / CENTER / RIGHT labels.
-6. Lower pulse-energy/purified counter and integrity panel.
-7. Separate movement instructions and pause control.
+## Layout
+1. Brand and system status.
+2. Operation title and brief instruction.
+3. Score, integrity, and wave cards.
+4. Portrait gameplay viewport with mission and wave chips.
+5. Target-lane indicator with LEFT / CENTER / RIGHT labels.
+6. Lower energy/purified card and integrity bar.
+7. Separate movement guidance and pause control.
 
 ## Responsive and interaction rules
-- Mobile-first game frame with a 9:16 aspect ratio and no horizontal overflow at a 390px viewport.
-- Keep canvas and HTML HUD layers aligned; do not put gameplay controls over the player sprite.
-- Keyboard and drag both cap movement at 1.04 lane units per second. Pointer movement updates a target lane; the player advances toward it at the same speed as A/D.
-- Pulses move in straight lines and never home in. Aim by changing the player's lane.
-- Keep reduced-motion support and visible keyboard focus styles.
+- 9:16 game frame, optimized for a 390px mobile viewport without horizontal overflow.
+- Keyboard and drag use the same maximum movement speed: 1.04 lane units per second.
+- Pointer motion sets the target lane; the player approaches it with a capped speed instead of teleporting.
+- Pulses always travel in a straight line and never home in.
+- Reduced-motion support and visible keyboard focus styles are retained.
