@@ -1,22 +1,22 @@
-# OUTBREAK PULSE — Energy Defense Shooter
+# OUTBREAK PULSE — Energy Defense Shooter (UI Design Update 05)
 
-A responsive single-page HTML Canvas shooter inspired by lane-based mobile zombie arcade games. Original artwork, a fictional cyan cleansing pulse, and a mobile-first field-console interface are used.
+This repository's root `index.html` is the current implementation of the Figma-inspired shooter UI. It displays a visible **DESIGN UPDATE 05** badge beside the field-operation heading so you can distinguish it from older downloaded copies.
+
+## Latest UI
+- Root page: [index.html](./index.html)
+- Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
+- UI tokens and layout spec: [DESIGN.md](./DESIGN.md)
 
 ## Gameplay
-- Move left/right with arrow keys or A/D.
-- Drag with mouse or touch to change the target lane.
-- Keyboard and drag use the same maximum movement speed: 1.04 lane units per second. Dragging sets a target; it never teleports the player.
-- Cyan energy pulses fire automatically in a straight line from the player's current lane. They never home in on enemies.
-- Infected approach along the road in perspective and take two pulse hits to cleanse.
-- Each successful cleanse grants 100 points. Contact with an infected in the same lane reduces integrity by 20.
-- A new wave starts after every five cleanses, with faster enemies and a higher spawn rate.
-- Includes a live score/integrity/wave HUD, lane-target indicator, lower pulse and integrity panels, hit particles, score floaters, damage feedback, pause/resume, wave progression, and restart.
+- Move left/right using the arrow keys or A/D.
+- Mouse or touch dragging sets a target lane. The player moves toward the target at the **same maximum speed** as keyboard input; dragging does not teleport the player.
+- Cyan energy pulses fire automatically in a straight line from the player's current lane. They do not home in on enemies.
+- Infected advance along the road, take two pulse hits to cleanse, and award 100 points.
+- Contact with an infected in the same lane reduces integrity by 20.
+- A new wave starts after five cleanses. The game includes pause/resume and restart.
 
-## UI design
-The current HTML/CSS implements the composition from the editable Figma design: a brand/status header, operation title, three compact stat cards, 9:16 gameplay viewport, mission and wave chips, target lane indicator, lower pulse/integrity cards, and separate movement/pause controls.
-
-- Editable design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
-- Design tokens and layout notes: [DESIGN.md](./DESIGN.md)
+## Important: open the correct file
+Download the latest package linked in the ChatGPT reply and open the package's **root** `index.html`. The first screen should show the **DESIGN UPDATE 05** badge. Old folders and ZIPs already downloaded to your PC do not update when GitHub changes; extract the latest ZIP into a new folder before running it.
 
 ## Run
-Open `index.html` in a modern browser. Keep the `assets/` folder beside it. No build tool or external runtime dependency is required.
+Keep `index.html` beside the `assets/` folder and open it in a modern browser. No build tool or external runtime dependency is required.
