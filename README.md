@@ -1,27 +1,15 @@
-# OUTBREAK RUN — Stage 4: Perspective & UI Pass
+# OUTBREAK PULSE — Energy Defense Shooter
 
-독립형 HTML Canvas 슈팅 러너 프로토타입입니다. 모바일 게임인 Last War: Survival의 전진형 도로 화면과 좌우 레인 이동에서 디자인 아이디어를 얻었으며, 아트와 코드는 직접 제작했습니다.
+A single-page HTML Canvas shooter prototype inspired by the forward-facing, lane-based shooting segments of mobile zombie arcade games. It uses original generated artwork and a fictional cleansing pulse instead of firearm imagery.
 
-## 이번 업데이트
-- 플레이 영역을 세로형 화면에 가깝게 구성
-- HUD 폭을 플레이 영역에 맞춰 정렬
-- 3개 레인 위치 표시기가 플레이어의 현재 위치를 보여줌
-- 플레이어와 적, 탄환을 하나의 도로 원근 좌표계로 처리
-- 도로 경계와 레인 표식, 길가 표지물이 앞으로 흐르도록 동기화
-- 적은 깊이에 따라 위치와 크기가 변하고, 뒤쪽에서 앞쪽으로 다가옴
-- 탄환은 플레이어가 발사한 레인을 따라 직선으로 전진하며 적을 자동 추적하지 않음
-- 적과 탄환이 같은 레인과 깊이에서 만날 때 충돌 판정
-- 게임 화면 위쪽으로 조작 안내를 옮겨 플레이어 위치를 덜 가리도록 조정
-- 멈춰 있는 것처럼 보이던 장식용 배경 좀비 제거
+## Gameplay
+- Player moves left/right using arrow keys or A/D, or by dragging across the game area.
+- Cyan cleansing pulses fire automatically in a perfectly straight path from the player's current lane.
+- Pulses do not home in on enemies. Aim by moving into the same lane as an approaching infected.
+- Infected approach along the road in perspective and take two pulse hits to cleanse.
+- Each successful cleanse grants 100 points. If an infected reaches the player in the same lane, integrity drops by 20.
+- The wave rises after every five cleanses. Higher waves increase enemy speed and spawn rate.
+- Includes hit particles, score floaters, damage feedback, pause/resume, and restart.
 
-## 조작
-- 컴퓨터: ← → 방향키 또는 A / D
-- 마우스: 화면을 누른 채 좌우 드래그
-- 태블릿/휴대폰: 게임 화면을 좌우로 드래그
-- 공격은 자동 발사지만 조준은 직접 이동해서 맞춰야 함
-
-## 실행
-`index.html`을 브라우저에서 열면 됩니다. 외부 라이브러리나 빌드 도구는 필요하지 않습니다.
-
-## 구현 메모
-도로 표식, 길가 표지물, 적, 탄환은 모두 0~1 범위의 깊이 값을 화면 좌표로 투영합니다. 이 방식으로 원근감과 이동 속도를 공유해 배경과 적이 따로 움직이는 느낌을 줄입니다.
+## Run
+Open `index.html` in a modern browser. The assets are stored in `assets/` and no build step or external dependency is needed.
