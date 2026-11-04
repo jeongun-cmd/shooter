@@ -18,7 +18,7 @@ Editable Figma file: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 - Header and field operation title.
 - Score, integrity and stage cards; the stage card contains a clear-goal progress bar.
 - Portrait game viewport with sector, stage, direct-aim lane guide and lower integrity/shard HUD.
-- Sound and pause controls.
+- Sound, manual save/load and pause controls.
 
 ## Stage-clear / Ascension Network screen
 - Stage-clear title and reward banner.
@@ -42,3 +42,8 @@ Editable Figma file: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 - Damage feedback uses brief flash and camera shake; boss and stage-clear moments use stronger but brief effects.
 - Figma has a 2-second core/node motion timeline. Game sound is generated through Web Audio and defaults to off until the player enables it.
 - `prefers-reduced-motion` disables ambient animation without affecting game logic or information.
+## Persistence and monster sprite system
+- Save data is versioned in browser `localStorage` and includes stage, clear count, score, shards, integrity and skill levels.
+- Autosave runs on a short interval and at important progression transitions; manual Save and Load controls are also provided.
+- Dedicated SVG sprite assets are loaded independently for walker, runner, tank, wisp and brute. Canvas adds per-type bob, sway, aura, hit flash and boss effects.
+- Save data is browser/device-local; it does not synchronize between devices or browsers.
