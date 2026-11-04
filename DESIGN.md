@@ -31,7 +31,7 @@ Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 - Figma prototype: 2-second motion timeline with editable manual keyframe tracks on survivor, infected, shadow, active lane and energy label.
 
 ## Interaction / accessibility
-- Keyboard and drag share the same speed cap (1.04 lane units/second). Drag updates a target lane; the survivor approaches it at a capped speed.
+- Keyboard and drag share the same maximum movement speed (1.04 lane units/second). Drag updates a target lane; the survivor approaches it at a capped speed.
 - Pulses travel in a straight line and do not home in.
 - Reduced-motion preferences disable ambient entrance/scan/bob effects while preserving readable state changes and core gameplay.
 - Visible keyboard focus styles are retained.
