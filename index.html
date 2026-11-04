@@ -24,6 +24,66 @@
 @keyframes pulse{0%,100%{opacity:.55;box-shadow:0 0 3px #73f4ef40}50%{opacity:1;box-shadow:0 0 11px #73f4efa8}}
 @media(max-width:480px){.app{padding:12px 12px 18px}.head{margin-bottom:10px}.mark{width:32px;height:32px}.wordmark{font-size:14px}.subtitle{font-size:7px;letter-spacing:.16em}.status{padding:7px 8px;font-size:8px}.intro{margin-bottom:10px}.intro-kicker{font-size:8px;gap:6px}.build-tag{font-size:6px;padding:3px 4px;letter-spacing:.08em}.intro h1{font-size:22px;margin:6px 0 3px}.intro p{font-size:10px}.stats{gap:5px;margin-bottom:8px}.stat{padding:9px 8px 8px;border-radius:7px}.stat-label{font-size:8px;letter-spacing:.07em}.stat-value{font-size:20px}.health-row .stat-value{font-size:19px}.stat-value em{font-size:8px}.stage{border-radius:10px}.stage-top{top:9px;left:9px;right:9px}.mission-chip,.wave-chip{padding:7px 8px}.mission-kicker,.wave-label{font-size:7px}.mission-title{font-size:10px}.wave-value{font-size:16px}.objective{top:63px;left:9px;width:118px;padding:5px 6px;gap:5px}.objective b{font-size:7px}.objective small{font-size:6px}.target-icon{width:21px;height:21px;flex:none}.lane-hud{top:63px;width:122px}.lane-title{font-size:6px;margin-bottom:3px}.lane-row{gap:7px;padding:6px 7px}.lane-row i{width:18px;height:4px}.stage-bottom{left:8px;right:8px;bottom:8px;gap:6px}.stage-status{padding:7px 7px;border-radius:7px}.pulse-mini{width:108px}.integrity-mini{width:112px}.mini-label{font-size:6px;letter-spacing:.1em}.mini-value{font-size:8px;margin-top:5px}.mini-sub{font-size:6px;margin-top:4px}.mini-sub b{font-size:7px}.mini-integrity{margin-top:4px}.mini-integrity strong{font-size:11px}.mini-integrity span{font-size:7px}.mini-bar{margin-top:6px}.controls{margin-top:8px;padding:8px;border-radius:7px}.move-icon{width:28px;height:28px}.control-help strong{font-size:9px}.control-help small{font-size:8px}.pause-btn{padding:8px 9px;font-size:9px}.note{font-size:8px}.lane-row i{width:13px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* MOTION SYSTEM — coordinated UI and gameplay feedback */
+.app{animation:appEnter .72s cubic-bezier(.2,.72,.22,1) both}
+.head{animation:headerEnter .52s cubic-bezier(.2,.7,.2,1) both}
+.intro{animation:copyEnter .58s .05s cubic-bezier(.2,.7,.2,1) both}
+.stats .stat{opacity:0;animation:cardEnter .48s cubic-bezier(.18,.72,.22,1) forwards}
+.stats .stat:nth-child(1){animation-delay:.11s}
+.stats .stat:nth-child(2){animation-delay:.18s}
+.stats .stat:nth-child(3){animation-delay:.25s}
+.stage-wrap{animation:stageEnter .7s .14s cubic-bezier(.18,.72,.22,1) both}
+.stage{transition:box-shadow .25s ease,border-color .25s ease;will-change:box-shadow}
+.game-canvas{z-index:0}
+.stage:before{content:"";position:absolute;z-index:1;left:0;right:0;top:-26%;height:22%;pointer-events:none;opacity:.18;background:linear-gradient(180deg,transparent,rgba(180,255,238,.22),rgba(199,243,106,.10),transparent);mix-blend-mode:screen;animation:stageScan 8.6s linear infinite}
+.stage-top,.objective,.lane-hud,.stage-bottom{z-index:2}
+.stage-top .mission-chip{animation:chipEnter .5s .26s both}
+.stage-top .wave-chip{animation:chipEnter .5s .34s both}
+.objective{animation:objectiveFloat 4.2s ease-in-out infinite}
+.target-icon{animation:iconBreathe 2.2s ease-in-out infinite;box-shadow:0 0 0 0 #73f4ef55}
+.lane-row i.active{animation:laneBeacon 1.35s ease-in-out infinite}
+.stage-status{animation:panelEnter .48s .3s both}
+.integrity-mini{animation-delay:.4s}
+.pulse-mini .mini-signal{animation:pulse 1.25s ease-in-out infinite}
+.controls{animation:controlEnter .5s .28s both}
+.pause-btn{transition:transform .16s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease}
+.pause-btn:hover{box-shadow:0 0 0 2px #73f4ef20,0 5px 16px #0003;border-color:#73f4ef77}
+.pause-btn:active{transform:translateY(1px) scale(.975)}
+.stat{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.stat:hover{transform:translateY(-2px);border-color:#728958;box-shadow:0 10px 24px #0003}
+.stat-value.score-pop{animation:scorePop .34s cubic-bezier(.18,.72,.22,1)}
+.stat-value.health-pop{animation:healthPop .3s ease}
+.wave-value-top.wave-pop{animation:wavePop .42s cubic-bezier(.18,.72,.22,1)}
+.stage.stage-hit{animation:stageHit .24s ease}
+.stage-status.health-hit{animation:healthPanelHit .3s ease}
+.overlay.show .overlay-card{animation:overlayEnter .34s cubic-bezier(.18,.72,.22,1) both}
+.retry{transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+.retry:hover{transform:translateY(-1px);box-shadow:0 7px 16px #0003}
+.retry:active{transform:translateY(1px) scale(.99)}
+@keyframes appEnter{from{opacity:0}to{opacity:1}}
+@keyframes headerEnter{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes copyEnter{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardEnter{from{opacity:0;transform:translateY(13px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes stageEnter{from{opacity:0;transform:translateY(16px) scale(.992)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes chipEnter{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes controlEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes panelEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes stageScan{0%{transform:translateY(0)}100%{transform:translateY(590%)}}
+@keyframes objectiveFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes iconBreathe{0%,100%{box-shadow:0 0 0 0 #73f4ef00;filter:brightness(1)}50%{box-shadow:0 0 0 4px #73f4ef1b;filter:brightness(1.12)}}
+@keyframes laneBeacon{0%,100%{box-shadow:0 0 5px #73f4ef55;filter:brightness(.95)}50%{box-shadow:0 0 13px #73f4efb5;filter:brightness(1.24)}}
+@keyframes scorePop{0%{transform:scale(1);text-shadow:none}45%{transform:scale(1.16);text-shadow:0 0 16px #c7f36a99}100%{transform:scale(1);text-shadow:none}}
+@keyframes healthPop{0%{transform:translateX(0)}25%{transform:translateX(-2px);color:var(--red)}50%{transform:translateX(2px)}100%{transform:translateX(0)}}
+@keyframes wavePop{0%{transform:scale(1)}45%{transform:scale(1.25);text-shadow:0 0 14px #ffb45e99}100%{transform:scale(1);text-shadow:none}}
+@keyframes stageHit{0%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-1px)}100%{transform:translateX(0)}}
+@keyframes healthPanelHit{0%{border-color:#ff6e6188;box-shadow:0 0 0 0 #ff6e6100}50%{border-color:#ff6e61;box-shadow:0 0 16px #ff6e6150}100%{border-color:#d8d3b04a;box-shadow:0 6px 18px #0003}}
+@keyframes overlayEnter{from{opacity:0;transform:translateY(9px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){
+ .app,.head,.intro,.stats .stat,.stage-wrap,.stage-top .mission-chip,.stage-top .wave-chip,.objective,.target-icon,.lane-row i.active,.stage-status,.controls,.overlay.show .overlay-card{animation:none!important;opacity:1!important;transform:none!important}
+ .stage:before{display:none!important}.stat,.pause-btn,.retry{transition:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -33,9 +93,9 @@
     <div class="status"><span class="live"></span> SYSTEM READY</div>
   </header>
   <section class="intro" aria-label="작전 정보">
-    <div class="intro-kicker">FIELD OPERATION / 01 <span class="build-tag">DESIGN UPDATE 05</span></div>
+    <div class="intro-kicker">FIELD OPERATION / 01 <span class="build-tag">MOTION UPDATE 06</span></div>
     <h1>정화 작전</h1>
-    <p>좌우로 이동해 직선 펄스를 맞춰라</p>
+    <p>좌우로 이동해 정화 에너지를 맞춰라</p>
   </section>
   <section class="stats" aria-label="게임 상태">
     <div class="stat"><div class="stat-label"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg> SCORE</div><div class="stat-value score-value" id="scoreValue">0000</div></div>
@@ -56,15 +116,16 @@
       <div class="overlay" id="pauseOverlay"><div class="overlay-card"><div class="kicker">FIELD PAUSED</div><h2>작전 일시 정지</h2><p>준비되면 정화 작전을 이어가.</p><button class="retry" id="resumeButton">계속하기 ▶</button></div></div>
     </div>
   </section>
-  <section class="controls"><div class="control-help"><span class="move-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 5 3 10l5 5M3 10h8M16 19l5-5-5-5M21 14H10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>좌우 이동으로 직접 조준</strong><small>← → / A·D · 좌우 드래그<br>드래그 최대 속도도 키보드와 같아 · 직선 자동 발사</small></span></div><button class="pause-btn" id="pauseButton"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지</button></section>
-  <p class="note"><b>TIP</b> 펄스는 조준을 따라가지 않아. 감염자와 같은 레인으로 이동해 경로를 맞춰!</p>
+  <section class="controls"><div class="control-help"><span class="move-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 5 3 10l5 5M3 10h8M16 19l5-5-5-5M21 14H10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>좌우 이동으로 직접 조준</strong><small>← → / A·D · 좌우 드래그<br>동일 이동속도 · 직선 자동 펄스</small></span></div><button class="pause-btn" id="pauseButton"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지</button></section>
+  <p class="note"><b>MOTION 06</b> 도로 흐름 · 러닝 모션 · 펄스 링 · 정화 충격파가 실시간으로 반응해.</p>
 </main>
 <script>
 (()=>{'use strict';
 const canvas=document.getElementById('game'),ctx=canvas.getContext('2d',{alpha:false}),stage=document.getElementById('stage');
 const ui={score:document.getElementById('scoreValue'),purified:document.getElementById('purifiedValue'),health:document.getElementById('healthValue'),healthBar:document.getElementById('healthBar'),integrityMini:document.getElementById('integrityMiniValue'),integrityMiniBar:document.getElementById('integrityMiniBar'),topWave:document.getElementById('topWaveValue'),laneHud:document.getElementById('laneHud'),laneRow:document.getElementById('laneRow'),wave:document.getElementById('waveValue'),gameOver:document.getElementById('gameOver'),pauseOverlay:document.getElementById('pauseOverlay'),finalScore:document.getElementById('finalScore'),pauseButton:document.getElementById('pauseButton'),mission:document.getElementById('missionTitle'),objective:document.getElementById('objectiveText')};
-const assets={road:new Image(),hero:new Image(),zombie:new Image()};assets.road.src='assets/road.jpg';assets.hero.src='assets/runner.webp';assets.zombie.src='assets/zombie.webp';
-let W=0,H=0,DPR=1,lastTime=0,elapsed=0,playerLane=0,dragTargetLane=0,keys=Object.create(null),dragging=false,enemies=[],shots=[],particles=[],floaters=[],spawnIn=.75,fireIn=.12,score=0,purifiedCount=0,health=100,paused=false,ended=false,shake=0,damageFlash=0,roadDust=[],pulseFlash=0,wave=1,killsInWave=0,worldTime=0;
+const assets={road:new Image(),hero:new Image(),zombie:new Image()};assets.road.src='assets/road.jpg';assets.hero.src='assets/runner.svg';assets.zombie.src='assets/zombie.webp';
+const prefersReducedMotion=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+let W=0,H=0,DPR=1,lastTime=0,elapsed=0,playerLane=0,dragTargetLane=0,playerLean=0,runPhase=0,roadFlow=0,keys=Object.create(null),dragging=false,enemies=[],shots=[],particles=[],rings=[],floaters=[],spawnIn=.75,fireIn=.12,score=0,purifiedCount=0,health=100,paused=false,ended=false,shake=0,damageFlash=0,roadDust=[],pulseFlash=0,wave=1,killsInWave=0,worldTime=0;
 const PLAYER_DEPTH=.91,LANES=[-.42,0,.42];
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function horizon(){return H*.145;}
@@ -79,9 +140,9 @@ function onAssetsReady(){Promise.all(Object.values(assets).map(img=>img.decode?i
 function makeEnemy(lane,depth,speed=0.11){return{lane,depth,prevDepth:depth,speed,hp:2,maxHp:2,hit:0,phase:Math.random()*6.28,dead:false,id:Math.random()};}
 function seedWorld(){enemies=[makeEnemy(-.42,.24,.11),makeEnemy(.42,.39,.12),makeEnemy(0,.12,.115)];}
 function spawnEnemy(){const lane=LANES[Math.floor(Math.random()*LANES.length)]+(Math.random()-.5)*.025;const depth=.025+Math.random()*.025;enemies.push(makeEnemy(lane,depth,.105+Math.random()*.025+(wave-1)*.006));}
-function spawnShot(){shots.push({lane:playerLane,depth:PLAYER_DEPTH-.09,prevDepth:PLAYER_DEPTH-.09,speed:1.34,tail:.035,dead:false,phase:Math.random()*6.28});pulseFlash=.075;}
-function update(dt){elapsed+=dt;worldTime+=dt;shake=Math.max(0,shake-dt*17);damageFlash=Math.max(0,damageFlash-dt*1.6);pulseFlash=Math.max(0,pulseFlash-dt);
-const dir=(keys.arrowright||keys.d?1:0)-(keys.arrowleft||keys.a?1:0);if(dir){playerLane=clamp(playerLane+dir*1.04*dt,-.78,.78);dragTargetLane=playerLane;}else if(dragging){const delta=dragTargetLane-playerLane;const maxStep=1.04*dt;playerLane=clamp(playerLane+clamp(delta,-maxStep,maxStep),-.78,.78);}
+function spawnShot(){shots.push({lane:playerLane,depth:PLAYER_DEPTH-.09,prevDepth:PLAYER_DEPTH-.09,speed:1.34,tail:.035,dead:false,phase:Math.random()*6.28});pulseFlash=.12;ringAt(playerX(),py(PLAYER_DEPTH)-68*scale(),12*scale(),'#73f4ef');}
+function update(dt){const previousScore=score,previousHealth=health,previousWave=wave,previousLane=playerLane;elapsed+=dt;worldTime+=dt;shake=Math.max(0,shake-dt*17);damageFlash=Math.max(0,damageFlash-dt*1.6);pulseFlash=Math.max(0,pulseFlash-dt);
+const dir=(keys.arrowright||keys.d?1:0)-(keys.arrowleft||keys.a?1:0);if(dir){playerLane=clamp(playerLane+dir*1.04*dt,-.78,.78);dragTargetLane=playerLane;}else if(dragging){const delta=dragTargetLane-playerLane;const maxStep=1.04*dt;playerLane=clamp(playerLane+clamp(delta,-maxStep,maxStep),-.78,.78);}const laneVelocity=dt>0?(playerLane-previousLane)/dt:0;const leanTarget=clamp(laneVelocity/1.04,-1,1);playerLean+=(leanTarget-playerLean)*Math.min(1,dt*(prefersReducedMotion?5:12));runPhase+=dt*(Math.abs(laneVelocity)>.04?12.5:7.5);roadFlow=(roadFlow+dt*.18)%1;
 fireIn-=dt;if(fireIn<=0){spawnShot();fireIn=.235;}
 for(const b of shots){b.prevDepth=b.depth;b.depth-=b.speed*dt;if(b.depth<0)b.dead=true;}
 spawnIn-=dt;if(spawnIn<=0){spawnEnemy();spawnIn=Math.max(.54,.93-(wave-1)*.065);}
@@ -90,23 +151,29 @@ for(const b of shots){if(b.dead)continue;for(const e of enemies){if(e.dead)conti
 shots=shots.filter(b=>!b.dead);enemies=enemies.filter(e=>!e.dead);
 if(killsInWave>=5){wave++;killsInWave=0;ui.objective.textContent='웨이브 '+String(wave).padStart(2,'0')+' 시작! 위협에 대비하세요';}
 for(const p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=16*dt;p.life-=dt;}particles=particles.filter(p=>p.life>0);
+for(const r of rings){r.radius+=r.speed*dt;r.life-=dt;}rings=rings.filter(r=>r.life>0);
 for(const f of floaters){f.y-=28*dt;f.life-=dt;}floaters=floaters.filter(f=>f.life>0);
 for(const d of roadDust){d.depth+=d.speed*dt;if(d.depth>1)d.depth=0;}
 ui.score.textContent=String(Math.floor(score)).padStart(4,'0');ui.purified.textContent=String(purifiedCount).padStart(2,'0');ui.health.textContent=health;ui.healthBar.style.width=health+'%';ui.healthBar.style.background=health>45?'linear-gradient(90deg,#87b743,#d5fa83)':'linear-gradient(90deg,#ff955a,#ff655a)';ui.topWave.textContent=String(wave).padStart(2,'0');ui.integrityMini.textContent=String(health);ui.integrityMiniBar.style.width=health+'%';ui.integrityMiniBar.style.background=health>45?'var(--lime)':'var(--red)';
 const laneIndex=playerLane<-.24?0:playerLane>.24?2:1;Array.from(ui.laneRow.children).forEach((el,i)=>el.classList.toggle('active',i===laneIndex));ui.wave.innerHTML=String(wave).padStart(2,'0')+'<small> / '+(wave>3?'ELITE':wave>1?'ACTIVE':'CLEAR')+'</small>';
+if(score>previousScore)playUI(ui.score,'score-pop');if(health<previousHealth){playUI(ui.health,'health-pop');playUI(ui.integrityMini,'health-pop');const panel=ui.integrityMini.closest('.stage-status');if(panel)playUI(panel,'health-hit');playUI(stage,'stage-hit');}if(wave>previousWave)playUI(ui.topWave,'wave-pop');
 if(health<=0)finish();}
-function spawnBurst(x,y,d,pulse=false){const n=(pulse?11:7)+Math.floor(d*5);for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,s=26+Math.random()*88;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.25+Math.random()*.28,max:.58,size:1+Math.random()*3,color:Math.random()>.45?(pulse?'#73f4ef':'#d7ff7b'):'#d7ff7b'});}}
+function playUI(node,className){if(!node)return;node.classList.remove(className);void node.offsetWidth;node.classList.add(className);node.addEventListener('animationend',()=>node.classList.remove(className),{once:true});}
+function ringAt(x,y,radius,color){rings.push({x,y,radius:radius*.35,maxRadius:radius,life:.34,maxLife:.34,speed:radius*2.1,color});}
+function spawnBurst(x,y,d,pulse=false){const n=(pulse?13:7)+Math.floor(d*5);for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,s=26+Math.random()*88;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.25+Math.random()*.28,max:.58,size:1+Math.random()*3,color:Math.random()>.45?(pulse?'#73f4ef':'#d7ff7b'):'#d7ff7b'});}if(pulse)ringAt(x,y,(18+24*d)*scale(),'#73f4ef');}
 function finish(){ended=true;ui.finalScore.textContent=String(Math.floor(score)).padStart(4,'0');ui.gameOver.classList.add('show');ui.mission.textContent='에너지 소진';ui.objective.textContent='정화 기록을 확인하고 다시 도전하세요';}
-function reset(){playerLane=0;dragTargetLane=0;keys=Object.create(null);dragging=false;enemies=[];shots=[];particles=[];floaters=[];spawnIn=.8;fireIn=.12;score=0;purifiedCount=0;health=100;paused=false;ended=false;elapsed=0;worldTime=0;wave=1;killsInWave=0;shake=0;damageFlash=0;ui.gameOver.classList.remove('show');ui.pauseOverlay.classList.remove('show');ui.mission.textContent='감염자를 정화하라';ui.objective.textContent='좌우 이동으로 레인 조준';ui.topWave.textContent='01';ui.integrityMini.textContent='100';ui.integrityMiniBar.style.width='100%';ui.purified.textContent='00';ui.pauseButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지';seedWorld();}
+function reset(){playerLane=0;dragTargetLane=0;playerLean=0;runPhase=0;roadFlow=0;keys=Object.create(null);dragging=false;enemies=[];shots=[];particles=[];rings=[];floaters=[];spawnIn=.8;fireIn=.12;score=0;purifiedCount=0;health=100;paused=false;ended=false;elapsed=0;worldTime=0;wave=1;killsInWave=0;shake=0;damageFlash=0;ui.gameOver.classList.remove('show');ui.pauseOverlay.classList.remove('show');ui.mission.textContent='감염자를 정화하라';ui.objective.textContent='좌우 이동으로 레인 조준';ui.topWave.textContent='01';ui.integrityMini.textContent='100';ui.integrityMiniBar.style.width='100%';ui.purified.textContent='00';ui.pauseButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지';seedWorld();}
 function togglePause(){if(ended)return;paused=!paused;ui.pauseOverlay.classList.toggle('show',paused);ui.pauseButton.innerHTML=paused?'<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="m8 5 11 7-11 7V5Z"/></svg> 계속하기':'<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지';}
 function drawBackground(t){if(assets.road.complete&&assets.road.naturalWidth){ctx.drawImage(assets.road,0,0,W,H);}else{const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#d4b47e');g.addColorStop(.3,'#71745c');g.addColorStop(1,'#575b4d');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}const shade=ctx.createLinearGradient(0,0,0,H);shade.addColorStop(0,'#121a1640');shade.addColorStop(.35,'#11171005');shade.addColorStop(1,'#11170f68');ctx.fillStyle=shade;ctx.fillRect(0,0,W,H);
+drawRoadFlow(t);
 for(const d of roadDust){const x=px(d.lane,d.depth),y=py(d.depth);ctx.globalAlpha=d.alpha*(.55+.45*Math.sin(t*1.7+d.phase));ctx.fillStyle='#d8e2c9';ctx.beginPath();ctx.ellipse(x,y,d.size*(.5+d.depth),d.size*(.65+d.depth*1.5),0,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;}
+function drawRoadFlow(t){if(prefersReducedMotion)return;const s=scale();ctx.save();ctx.globalCompositeOperation='screen';for(const lane of [-.98,.98]){for(let i=0;i<10;i++){const d=(i/10+roadFlow)%1,x=px(lane,d),y=py(d),len=(2.5+d*8)*s,w=(.8+d*1.6)*s;ctx.globalAlpha=.10+d*.22;ctx.strokeStyle=i%3===0?'#c7f36a':'#d9eee0';ctx.lineWidth=w;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x,y-len*.5);ctx.lineTo(x,y+len*.5);ctx.stroke();}}ctx.restore();}
 function drawSprite(img,x,y,w,h,shadow){if(shadow){ctx.save();ctx.globalAlpha=.24;ctx.fillStyle='#0a100d';ctx.beginPath();ctx.ellipse(x,y-1,w*.32,Math.max(3,h*.055),0,0,Math.PI*2);ctx.fill();ctx.restore();}if(img.complete&&img.naturalWidth)ctx.drawImage(img,x-w/2,y-h,w,h);}
-function drawEnemies(t){const ordered=enemies.slice().sort((a,b)=>a.depth-b.depth);for(const e of ordered){const x=px(e.lane,e.depth),foot=py(e.depth),h=clamp(42+e.depth*112,46,145)*scale(),w=h*(150/241);ctx.save();ctx.translate(x,foot);ctx.globalAlpha=e.hit>0?.60:1;drawSprite(assets.zombie,0,Math.sin(t*6+e.phase)*.8*scale(),w,h,true);ctx.restore();ctx.globalAlpha=1;const bw=Math.max(13,h*.35),bh=Math.max(2,h*.032),bx=x-bw/2,by=foot-h*.91;ctx.fillStyle='#182015e8';ctx.fillRect(bx-1,by-1,bw+2,bh+2);ctx.fillStyle=e.hit>0?'#e9ffff':'#73f4ef';ctx.fillRect(bx,by,bw*Math.max(0,e.hp/e.maxHp),bh);}}
-function drawPulseCore(t){const x=playerX(),y=py(PLAYER_DEPTH)-92*scale(),s=scale();ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.7+.25*Math.sin(t*8);ctx.shadowColor='#73f4ef';ctx.shadowBlur=16*s;ctx.fillStyle='#73f4ef';ctx.beginPath();ctx.arc(x,y,3.7*s,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#d6ffff';ctx.lineWidth=1.3*s;ctx.beginPath();ctx.arc(x,y,7*s,0,Math.PI*2);ctx.stroke();ctx.restore();}
-function drawShots(t){const s=scale();ctx.save();ctx.globalCompositeOperation='lighter';for(const b of shots){const x=px(b.lane,b.depth),y=py(b.depth),tailDepth=clamp(b.depth+b.tail,0,1),tx=px(b.lane,tailDepth),ty=py(tailDepth);ctx.globalAlpha=.25;ctx.strokeStyle='#73f4ef';ctx.lineWidth=9*s;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();ctx.globalAlpha=.95;ctx.strokeStyle='#c7ffff';ctx.lineWidth=2.3*s;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();ctx.shadowColor='#73f4ef';ctx.shadowBlur=13*s;ctx.fillStyle='#e9ffff';ctx.beginPath();ctx.ellipse(x,y,2.5*s,5*s,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}ctx.restore();}
-function drawHero(t){const x=playerX(),foot=py(PLAYER_DEPTH)+Math.sin(t*7)*.7*scale(),h=158*scale(),w=h*(148/285);drawSprite(assets.hero,x,foot,w,h,true);ctx.save();ctx.strokeStyle='#73f4ef';ctx.globalAlpha=.6+.25*Math.sin(t*5);ctx.lineWidth=1.2*scale();ctx.setLineDash([4*scale(),3*scale()]);ctx.beginPath();ctx.ellipse(x,foot-2*scale(),w*.42,5*scale(),0,0,Math.PI*2);ctx.stroke();ctx.restore();}
-function drawParticles(){for(const p of particles){ctx.globalAlpha=clamp(p.life/(p.max||.6),0,1);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size*Math.max(.2,p.life/.5),0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;for(const f of floaters){ctx.globalAlpha=clamp(f.life/.85,0,1);ctx.fillStyle='#f5ffbd';ctx.font=`800 ${Math.max(11,13*scale())}px system-ui`;ctx.textAlign='center';ctx.shadowColor='#2a3a1c';ctx.shadowBlur=5;ctx.fillText(f.text,f.x,f.y);ctx.shadowBlur=0;}ctx.globalAlpha=1;}
+function drawEnemies(t){const ordered=enemies.slice().sort((a,b)=>a.depth-b.depth);for(const e of ordered){const x=px(e.lane,e.depth),foot=py(e.depth),h=clamp(42+e.depth*112,46,145)*scale(),w=h*(150/241),bob=prefersReducedMotion?0:Math.sin(t*5.5+e.phase)*1.4*scale()*(.4+e.depth),sway=prefersReducedMotion?0:Math.sin(t*2.8+e.phase)*.025;ctx.save();ctx.globalAlpha=.22;ctx.fillStyle='#0a100d';ctx.beginPath();ctx.ellipse(x,foot-1,w*.32,Math.max(3,h*.055),0,0,Math.PI*2);ctx.fill();ctx.restore();ctx.save();ctx.translate(x,foot-bob);ctx.rotate(sway);ctx.globalAlpha=e.hit>0?.58:1;if(e.hit>0){ctx.shadowColor='#bafcff';ctx.shadowBlur=12*scale();}drawSprite(assets.zombie,0,0,w,h,false);ctx.restore();ctx.globalAlpha=1;const bw=Math.max(13,h*.35),bh=Math.max(2,h*.032),bx=x-bw/2,by=foot-h*.91;ctx.fillStyle='#182015e8';ctx.fillRect(bx-1,by-1,bw+2,bh+2);ctx.fillStyle=e.hit>0?'#e9ffff':'#73f4ef';ctx.fillRect(bx,by,bw*Math.max(0,e.hp/e.maxHp),bh);if(e.hit>0){ctx.globalAlpha=.72;ctx.strokeStyle='#d6ffff';ctx.lineWidth=1.2*scale();ctx.beginPath();ctx.ellipse(x,foot-h*.52,w*.36,h*.46,0,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;}}}
+function drawPulseCore(t){const x=playerX(),y=py(PLAYER_DEPTH)-92*scale(),s=scale(),breath=prefersReducedMotion?0:Math.sin(t*7)*1.2*s;ctx.save();ctx.globalCompositeOperation='lighter';ctx.globalAlpha=.66+.28*Math.sin(t*8);ctx.shadowColor='#73f4ef';ctx.shadowBlur=18*s;ctx.fillStyle='#73f4ef';ctx.beginPath();ctx.arc(x,y,3.7*s+breath*.25,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#d6ffff';ctx.lineWidth=1.3*s;ctx.beginPath();ctx.arc(x,y,7*s+breath,0,Math.PI*2);ctx.stroke();for(let i=0;i<2;i++){const a=t*1.8+i*Math.PI,r=12*s+breath;ctx.globalAlpha=.58;ctx.fillStyle=i?'#c7f36a':'#73f4ef';ctx.beginPath();ctx.arc(x+Math.cos(a)*r,y+Math.sin(a)*r*.5,1.35*s,0,Math.PI*2);ctx.fill();}if(pulseFlash>0){const p=1-pulseFlash/.12;ctx.globalAlpha=(1-p)*.55;ctx.strokeStyle='#bafffb';ctx.lineWidth=2*s;ctx.beginPath();ctx.arc(x,y,8*s+p*21*s,0,Math.PI*2);ctx.stroke();}ctx.restore();}
+function drawShots(t){const s=scale();ctx.save();ctx.globalCompositeOperation='lighter';ctx.lineCap='round';for(const b of shots){const x=px(b.lane,b.depth),y=py(b.depth),tailDepth=clamp(b.depth+b.tail,0,1),tx=px(b.lane,tailDepth),ty=py(tailDepth),flicker=.88+.12*Math.sin(t*19+b.phase);ctx.globalAlpha=.20*flicker;ctx.strokeStyle='#73f4ef';ctx.lineWidth=10*s;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();ctx.globalAlpha=.9*flicker;ctx.strokeStyle='#c7ffff';ctx.lineWidth=2.5*s;ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(x,y);ctx.stroke();ctx.shadowColor='#73f4ef';ctx.shadowBlur=16*s;ctx.fillStyle='#efffff';ctx.beginPath();ctx.ellipse(x,y,2.6*s,5.5*s,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.globalAlpha=.58;ctx.strokeStyle='#bafffb';ctx.lineWidth=1*s;ctx.beginPath();ctx.arc(x,y,6*s+Math.sin(t*16+b.phase)*1.5*s,0,Math.PI*2);ctx.stroke();}ctx.restore();}
+function drawHero(t){const x=playerX(),s=scale(),cycle=prefersReducedMotion?0:runPhase,bob=prefersReducedMotion?0:(Math.sin(cycle*1.4)*1.15+Math.abs(Math.sin(cycle*1.4))*.8)*s,foot=py(PLAYER_DEPTH),h=158*s,w=h*(148/285);ctx.save();ctx.globalAlpha=.3;ctx.fillStyle='#08100d';ctx.beginPath();ctx.ellipse(x,foot-1,w*.34,Math.max(3,h*.055),0,0,Math.PI*2);ctx.fill();ctx.restore();ctx.save();ctx.translate(x,foot-bob);ctx.rotate(prefersReducedMotion?0:playerLean*.105);drawSprite(assets.hero,0,0,w,h,false);ctx.restore();ctx.save();ctx.strokeStyle='#73f4ef';ctx.globalAlpha=.48+.3*Math.sin(t*5);ctx.lineWidth=1.2*s;ctx.setLineDash([4*s,3*s]);ctx.beginPath();ctx.ellipse(x,foot-2*s,w*.42,5*s,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=.36+.16*Math.sin(t*4);ctx.strokeStyle='#c7f36a';ctx.lineWidth=.8*s;ctx.beginPath();ctx.ellipse(x,foot+1*s,w*.55,7*s,0,0,Math.PI*2);ctx.stroke();ctx.restore();}
+function drawParticles(){for(const r of rings){const alpha=clamp(r.life/r.maxLife,0,1);ctx.save();ctx.globalAlpha=alpha*.78;ctx.strokeStyle=r.color;ctx.lineWidth=Math.max(.8,2.1*scale()*alpha);ctx.shadowColor=r.color;ctx.shadowBlur=8*scale();ctx.beginPath();ctx.ellipse(r.x,r.y,r.radius,r.radius*.48,0,0,Math.PI*2);ctx.stroke();ctx.restore();}for(const p of particles){ctx.globalAlpha=clamp(p.life/(p.max||.6),0,1);ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=4*scale();ctx.beginPath();ctx.arc(p.x,p.y,p.size*Math.max(.2,p.life/.5),0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}ctx.globalAlpha=1;for(const f of floaters){ctx.globalAlpha=clamp(f.life/.85,0,1);ctx.fillStyle='#f5ffbd';ctx.font=`800 ${Math.max(11,13*scale())}px system-ui`;ctx.textAlign='center';ctx.shadowColor='#2a3a1c';ctx.shadowBlur=5;ctx.fillText(f.text,f.x,f.y);ctx.shadowBlur=0;}ctx.globalAlpha=1;}
 function render(t){ctx.save();if(shake>0)ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);drawBackground(t);drawEnemies(t);drawShots(t);drawHero(t);drawPulseCore(t);drawParticles();if(damageFlash>0){ctx.globalAlpha=damageFlash*.18;ctx.fillStyle='#ff5847';ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}ctx.restore();}
 function loop(now){const dt=lastTime?Math.min((now-lastTime)/1000,.04):0;lastTime=now;if(!paused&&!ended)update(dt);render(now/1000);requestAnimationFrame(loop);}
 function fromPointer(e){const r=canvas.getBoundingClientRect();const local=(e.clientX-r.left)-r.width*.5;dragTargetLane=clamp(local/roadHalf(PLAYER_DEPTH),-.78,.78);}
