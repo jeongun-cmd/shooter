@@ -1,22 +1,27 @@
-# OUTBREAK PULSE — Energy Defense Shooter (UI Design Update 05)
+# OUTBREAK PULSE — Energy Defense Shooter (Motion Update 06)
 
-This repository's root `index.html` is the current implementation of the Figma-inspired shooter UI. It displays a visible **DESIGN UPDATE 05** badge beside the field-operation heading so you can distinguish it from older downloaded copies.
-
-## Latest UI
-- Root page: [index.html](./index.html)
-- Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
-- UI tokens and layout spec: [DESIGN.md](./DESIGN.md)
+A responsive, mobile-first HTML Canvas arcade game. The character channels a fictional cleansing pulse from a chest sigil; no handheld equipment is used. The player aims by moving between lanes, while pulses travel straight and never home in.
 
 ## Gameplay
-- Move left/right using the arrow keys or A/D.
-- Mouse or touch dragging sets a target lane. The player moves toward the target at the **same maximum speed** as keyboard input; dragging does not teleport the player.
-- Cyan energy pulses fire automatically in a straight line from the player's current lane. They do not home in on enemies.
-- Infected advance along the road, take two pulse hits to cleanse, and award 100 points.
-- Contact with an infected in the same lane reduces integrity by 20.
-- A new wave starts after five cleanses. The game includes pause/resume and restart.
+- Move left/right with arrow keys or A/D.
+- Drag with mouse or touch to choose a target lane. Keyboard and drag share the same maximum speed (1.04 lane units per second); dragging does not teleport the character.
+- The character automatically emits straight-line cleansing pulses from the energy sigil.
+- Infected approach along the road in perspective and take two pulse hits to cleanse.
+- Each cleanse grants 100 points. Contact in the same lane reduces integrity by 20.
+- A new wave starts after five cleanses, with faster infected and a higher spawn rate.
+- Includes pause/resume, restart, score and integrity HUD, hit feedback and wave progression.
 
-## Important: open the correct file
-Download the latest package linked in the ChatGPT reply and open the package's **root** `index.html`. The first screen should show the **DESIGN UPDATE 05** badge. Old folders and ZIPs already downloaded to your PC do not update when GitHub changes; extract the latest ZIP into a new folder before running it.
+## Design and motion
+- Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
+- Figma includes a 2-second motion timeline for the survivor bob, infected idle movement, ground-shadow breathing, lane beacon and pulse-energy label.
+- HTML/CSS: staggered screen entry, stat-card reveal, scanning light, lane beacon glow, objective icon breathing, button feedback and value-change animations.
+- Canvas: moving road reflectors and dust, survivor run/lean motion, infected bob/sway, glowing pulse trails, orbital chest-sigil motes, expanding cleanse rings, particles, score floaters and damage feedback.
+- Reduced-motion preferences are respected.
+
+## Assets
+- `assets/road.jpg` — road background
+- `assets/runner.svg` — original open-handed survivor with a chest energy sigil
+- `assets/zombie.webp` — infected character sprite
 
 ## Run
-Keep `index.html` beside the `assets/` folder and open it in a modern browser. No build tool or external runtime dependency is required.
+Open `index.html` in a modern browser while keeping the `assets/` folder beside it. No build tools or external runtime libraries are required.
