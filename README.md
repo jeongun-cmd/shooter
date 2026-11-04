@@ -1,11 +1,11 @@
 # OUTBREAK PULSE — Energy Defense Shooter (Motion Update 06)
 
-A responsive, mobile-first HTML Canvas arcade game. The character channels a fictional cleansing pulse from a chest sigil; no handheld equipment is used. The player aims by moving between lanes, while pulses travel straight and never home in.
+A responsive, mobile-first HTML Canvas arcade game. The survivor channels a fictional cleansing pulse from a chest sigil; the character carries no handheld equipment. The player aims by moving between lanes, while energy pulses travel in a straight line and never home in.
 
 ## Gameplay
 - Move left/right with arrow keys or A/D.
 - Drag with mouse or touch to choose a target lane. Keyboard and drag share the same maximum speed (1.04 lane units per second); dragging does not teleport the character.
-- The character automatically emits straight-line cleansing pulses from the energy sigil.
+- The survivor automatically emits straight-line cleansing pulses from the chest sigil.
 - Infected approach along the road in perspective and take two pulse hits to cleanse.
 - Each cleanse grants 100 points. Contact in the same lane reduces integrity by 20.
 - A new wave starts after five cleanses, with faster infected and a higher spawn rate.
@@ -20,7 +20,7 @@ A responsive, mobile-first HTML Canvas arcade game. The character channels a fic
 
 ## Assets
 - `assets/road.jpg` — road background
-- `assets/runner.svg` — original open-handed survivor with a chest energy sigil
+- `assets/runner.svg` — original open-handed survivor with a chest energy sigil; no handheld equipment
 - `assets/zombie.webp` — infected character sprite
 
 ## Run
