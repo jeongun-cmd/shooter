@@ -36,6 +36,7 @@ Each node has five levels. Costs grow by skill level and stage. The stage-clear 
 - Drag with mouse or touch to set a target lane. Drag and keyboard share the same speed cap; dragging never teleports the survivor.
 - Pulses fire automatically in a straight line.
 - Pause/resume is available at any time during active combat.
+- **Save / Load** buttons store and restore stage, score, shards, health, and all six skill levels using browser `localStorage`. Progress auto-saves every 3 seconds, on stage clear, after upgrades, when switching tabs, and when the page closes. Loading an in-progress stage respawns its current enemies but preserves the cleared count and character progression. Save data stays in the same browser and device.
 - Sound is off by default. Use **SOUND OFF** to enable synthesized Web Audio effects (pulse, hit, cleanse, damage, upgrade and stage-clear chimes). No external audio files or network requests are required.
 
 ## Visual design and motion
@@ -48,8 +49,8 @@ Each node has five levels. Costs grow by skill level and stage. The stage-clear 
 ## Assets
 - `assets/road.jpg` — road background.
 - `assets/runner.svg` — open-handed survivor with chest cleansing sigil.
-- `assets/zombie.webp` — infected base art used by walker/runner/tank/brute variants.
-- Wisp and additional monster accents are drawn with Canvas primitives.
+- `assets/zombie.webp` — fallback infected art.
+- `assets/monsters/walker.svg`, `runner.svg`, `tank.svg`, `wisp.svg`, `brute.svg` — dedicated transparent monster sprites; each is loaded independently and combined with its own movement/idle animation.
 
 ## Run locally
 Keep `index.html` beside the `assets/` folder and open `index.html` in a modern browser. No build step or external runtime dependency is needed.
