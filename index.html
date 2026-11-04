@@ -95,6 +95,55 @@
 @media(max-width:480px){.control-actions{gap:5px}.sound-btn{padding:8px 7px;font-size:8px}.stage-clear-overlay{padding:7px}.stage-clear-card{padding:12px 9px 9px}.stage-clear-card h2{font-size:20px}.skill-tree{height:204px}.skill-node{width:51px;height:51px}.skill-heading small{font-size:7px}.clear-reward{padding:7px 8px}.next-stage-btn{padding:9px 9px;gap:7px;font-size:9px}.skill-detail{font-size:7px}}
 @media(prefers-reduced-motion:reduce){.skill-links path{animation:none}.skill-node,.next-stage-btn,.sound-btn{transition:none}}
 
+
+/* MOBILE PLAYABILITY */
+html,body{overscroll-behavior-y:contain;-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
+.game-canvas{touch-action:none;-webkit-user-select:none;user-select:none}
+.controls{flex-wrap:wrap}
+.control-actions{flex-wrap:wrap;justify-content:flex-end}
+.fullscreen-btn{display:flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:9px 11px;border-radius:7px;border:1px solid #536542;background:#263522;color:#dce9ca;font:800 9px system-ui;cursor:pointer;white-space:nowrap}
+.fullscreen-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+@media(max-width:600px){
+  body{min-height:100dvh}
+  .app{width:100%;padding:calc(10px + env(safe-area-inset-top)) 10px calc(14px + env(safe-area-inset-bottom))}
+  .head,.intro,.stats,.stage-wrap,.controls,.note{width:100%}
+  .stage{border-radius:9px}
+  .controls{align-items:flex-start;padding:9px;gap:9px}
+  .control-help{flex:1 1 100%}
+  .control-help small{font-size:10px}
+  .control-actions{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .control-actions button{min-height:44px;width:100%;justify-content:center;font-size:10px}
+  .pause-btn{min-height:44px;justify-content:center}
+  .sound-btn{min-height:44px}
+  .fullscreen-btn{min-height:44px}
+  .skill-node{min-width:44px;min-height:44px}
+  .retry,.next-stage-btn{min-height:48px}
+}
+@media(max-width:360px){
+  .app{padding-left:7px;padding-right:7px}
+  .wordmark{font-size:12px}
+  .subtitle{font-size:6px}
+  .status{font-size:7px;padding:6px}
+  .stats{gap:4px}
+  .stat{padding:7px 6px}
+  .stat-value{font-size:18px}
+  .control-actions{gap:5px}
+}
+@media(orientation:landscape) and (max-height:600px) and (min-width:600px){
+  .app{width:100%;max-width:1200px;padding:8px 14px}
+  .head{width:100%;margin-bottom:6px}
+  .intro{display:none}
+  .stats{width:100%;max-width:700px;margin-bottom:7px}
+  .stats .stat{padding:5px 9px}
+  .stat-value{font-size:17px}
+  .stage-wrap{width:100%;max-width:none}
+  .stage{width:min(100%,calc((100dvh - 190px)*1.7778));aspect-ratio:16/9;margin:0 auto}
+  .controls{width:100%;max-width:700px;margin-top:7px;padding:6px 9px}
+  .note{display:none}
+}
+@media(prefers-reduced-motion:reduce){.fullscreen-btn{transition:none}}
+
 </style>
 </head>
 <body>
@@ -151,7 +200,7 @@
       </div>
     </div>
   </section>
-  <section class="controls"><div class="control-help"><span class="move-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 5 3 10l5 5M3 10h8M16 19l5-5-5-5M21 14H10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>좌우 이동으로 직접 조준</strong><small>← → / A·D · 좌우 드래그<br>동일 이동속도 · 직선 자동 펄스</small></span></div><div class="control-actions"><button class="sound-btn" id="soundButton" type="button">♪ SOUND OFF</button><button class="sound-btn" id="saveButton" type="button">저장</button><button class="sound-btn" id="loadButton" type="button">불러오기</button><button class="pause-btn" id="pauseButton"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지</button></div></section>
+  <section class="controls"><div class="control-help"><span class="move-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 5 3 10l5 5M3 10h8M16 19l5-5-5-5M21 14H10" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>좌우 이동으로 직접 조준</strong><small>← → / A·D · 좌우 드래그<br>동일 이동속도 · 직선 자동 펄스</small></span></div><div class="control-actions"><button class="sound-btn" id="soundButton" type="button">♪ SOUND OFF</button><button class="sound-btn" id="saveButton" type="button">저장</button><button class="sound-btn" id="loadButton" type="button">불러오기</button><button class="fullscreen-btn" id="fullscreenButton" type="button" aria-label="전체 화면 전환">⛶ 전체 화면</button><button class="pause-btn" id="pauseButton"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M8 5v14M16 5v14"/></svg> 일시 정지</button></div></section>
   <p class="note"><b>STAGE LOOP</b> 몬스터 처치 → 정화 결정 획득 → 스킬트리 강화 → 다음 스테이지 도전</p>
 </main>
 <script>
@@ -260,7 +309,7 @@ function fromPointer(e){const r=canvas.getBoundingClientRect();const local=(e.cl
 window.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(['arrowleft','arrowright','a','d'].includes(k)){keys[k]=true;e.preventDefault();}});
 window.addEventListener('keyup',e=>{const k=e.key.toLowerCase();keys[k]=false;});window.addEventListener('blur',()=>{keys=Object.create(null);dragging=false;});
 canvas.addEventListener('pointerdown',e=>{dragging=true;fromPointer(e);if(canvas.setPointerCapture)canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(dragging)fromPointer(e);});canvas.addEventListener('pointerup',()=>{dragging=false;dragTargetLane=playerLane;});canvas.addEventListener('pointercancel',()=>{dragging=false;dragTargetLane=playerLane;});
-ui.saveButton.addEventListener('click',()=>saveProgress(true));ui.loadButton.addEventListener('click',()=>loadProgress(true));window.addEventListener('pagehide',()=>saveProgress(false));document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveProgress(false);});document.getElementById('pauseButton').addEventListener('click',togglePause);document.getElementById('resumeButton').addEventListener('click',togglePause);document.getElementById('restartButton').addEventListener('click',reset);document.getElementById('continueStageButton').addEventListener('click',enterNextStage);document.getElementById('soundButton').addEventListener('click',()=>{soundEnabled=!soundEnabled;if(soundEnabled){ensureAudio();playSfx('buy');}ui.soundButton.classList.toggle('active',soundEnabled);ui.soundButton.textContent=soundEnabled?'♪ SOUND ON':'♪ SOUND OFF';});document.querySelectorAll('.skill-node').forEach(node=>node.addEventListener('click',()=>{const key=node.dataset.skill;selectSkill(key);buySkill(key);}));
+const fullscreenButton=document.getElementById('fullscreenButton');function syncFullscreenButton(){if(fullscreenButton)fullscreenButton.textContent=document.fullscreenElement?'⤢ 전체 화면 종료':'⛶ 전체 화면';}fullscreenButton.addEventListener('click',async()=>{try{if(!document.fullscreenElement){if(stage.requestFullscreen)await stage.requestFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();}else await document.exitFullscreen();}catch(err){if(ui.objective)ui.objective.textContent='이 브라우저에서는 전체 화면을 지원하지 않아. 브라우저 메뉴에서 전체 화면을 선택해줘.';}syncFullscreenButton();});document.addEventListener('fullscreenchange',syncFullscreenButton);ui.saveButton.addEventListener('click',()=>saveProgress(true));ui.loadButton.addEventListener('click',()=>loadProgress(true));window.addEventListener('pagehide',()=>saveProgress(false));document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveProgress(false);});document.getElementById('pauseButton').addEventListener('click',togglePause);document.getElementById('resumeButton').addEventListener('click',togglePause);document.getElementById('restartButton').addEventListener('click',reset);document.getElementById('continueStageButton').addEventListener('click',enterNextStage);document.getElementById('soundButton').addEventListener('click',()=>{soundEnabled=!soundEnabled;if(soundEnabled){ensureAudio();playSfx('buy');}ui.soundButton.classList.toggle('active',soundEnabled);ui.soundButton.textContent=soundEnabled?'♪ SOUND ON':'♪ SOUND OFF';});document.querySelectorAll('.skill-node').forEach(node=>node.addEventListener('click',()=>{const key=node.dataset.skill;selectSkill(key);buySkill(key);}));
 if('ResizeObserver'in window)new ResizeObserver(resize).observe(stage);else window.addEventListener('resize',resize);resize();updateSkillTree();if(!loadProgress(false))seedWorld();onAssetsReady();
 })();
 </script>
