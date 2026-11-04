@@ -1,6 +1,6 @@
-# OUTBREAK PULSE — UI & Motion Specification (Motion Update 06)
+# OUTBREAK PULSE — Stage System 07 Design Specification
 
-Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
+Editable Figma file: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 
 ## Visual tokens
 - Background / Base: `#11170F`
@@ -14,24 +14,31 @@ Editable Figma design: https://www.figma.com/design/iQFVQZbVN767rQK2EO62IA
 - Status / Warning: `#FFB45E`
 - Status / Danger: `#FF6E61`
 
-## Screen hierarchy
-1. Brand and system-status header.
-2. Operation title and short aiming instruction.
-3. Score, integrity and wave cards.
-4. Portrait gameplay viewport with mission and wave chips.
-5. Direct-aim lane indicator.
-6. Lower pulse-energy/purified and integrity panels.
-7. Separate movement guidance and pause control.
+## Main progression screen
+- Header and field operation title.
+- Score, integrity and stage cards; the stage card contains a clear-goal progress bar.
+- Portrait game viewport with sector, stage, direct-aim lane guide and lower integrity/shard HUD.
+- Sound and pause controls.
 
-## Motion choreography
-- Entrance: header → title → stat cards → viewport → lower controls (staggered, under 750ms).
-- Ambient: slow scan light over the playfield, lane beacon glow and pulse-sigil breathing.
-- Character: subtle survivor bob and lean; infected idle bob/sway; ground contact shadow breathes.
-- Gameplay: straight energy pulses have a shimmering trail; cleanses produce expanding rings, particles and floating score; damage triggers brief panel feedback and restrained screen shake.
-- Figma prototype: 2-second motion timeline with editable manual keyframe tracks on survivor, infected, shadow, active lane and energy label.
+## Stage-clear / Ascension Network screen
+- Stage-clear title and reward banner.
+- Web-like connected skill network, inspired by the supplied diamond-node reference image.
+- Six editable upgrade nodes arranged around a central sigil: power, fire rate, vitality, mobility, pierce and barrier.
+- Skill detail and available shard balance.
+- Next-stage action.
 
-## Interaction / accessibility
-- Keyboard and drag share the same maximum movement speed (1.04 lane units/second). Drag updates a target lane; the survivor approaches it at a capped speed.
-- Pulses travel in a straight line and do not home in.
-- Reduced-motion preferences disable ambient entrance/scan/bob effects while preserving readable state changes and core gameplay.
-- Visible keyboard focus styles are retained.
+## Progression and balance rules
+- Stage 1 goal: 8 cleanses; each subsequent stage adds 3 to the goal.
+- Monster rewards and stage-clear rewards increase with stage.
+- Stages 2/3/4 introduce runner/tank/wisp types; every fifth stage spawns a brute boss after the final regular kill.
+- Enemy integrity, speed and contact damage scale by type and stage.
+- Each skill has five levels; its cost scales with level and stage.
+- Keyboard and drag share the same maximum movement speed, including the mobility upgrade multiplier.
+
+## Motion and audio
+- Screen and HUD use staggered entrance and state-change feedback.
+- Survivor movement includes run bob and lean. Enemies have per-archetype idle/sway animation.
+- Energy pulses have luminous trails and impact rings; cleanses add particles and floating shard rewards.
+- Damage feedback uses brief flash and camera shake; boss and stage-clear moments use stronger but brief effects.
+- Figma has a 2-second core/node motion timeline. Game sound is generated through Web Audio and defaults to off until the player enables it.
+- `prefers-reduced-motion` disables ambient animation without affecting game logic or information.
